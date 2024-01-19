@@ -6,20 +6,37 @@ const sqlite3 = require('sqlite3').verbose();
 const app = express();
 app.use(bodyParser.json());
 
-// Criar uma conexão com o banco de dados SQLite
+// Criar uma conexão com o banco de dados SQLite (comando: npm install sqlite3)
 const db = new sqlite3.Database('series.db');
 
-// Criar a tabela se ela não existir
+// Criar a tabela se ela não existir,mas parece n estar certo
 db.serialize(() => {
     db.run("CREATE TABLE IF NOT EXISTS series (id INTEGER PRIMARY KEY, nome TEXT, genero TEXT, temporadas INTEGER, anoLancamento INTEGER, rating REAL)");
 
-    // Inserir séries iniciais (se a tabela estiver vazia)
+    // Séries iniciais (se a tabela estiver vazia, mas tbm para ter mais volume)
     db.get("SELECT count(*) as count FROM series", (err, row) => {
         if (row.count === 0) {
             const initialSeries = [
                 ['Breaking Bad', 'Drama', 5, 2008, 9.5],
                 ['Stranger Things', 'Ficção Científica', 4, 2016, 8.7],
-                // Adicione mais séries conforme necessário
+                ['Breaking Bad', 'Drama', 5, 2008, 9.5 ],
+                ['Stranger Things', 'Ficção Científica', 4, 2016, 8.7 ],
+                ['The Mandalorian','Ação, Aventura, Fantasia', 3, 2019,  8.7 ],
+                ['Black Mirror','Drama, Ficção Científica, Thriller', 5,  2011, 8.8 ],
+                ['Game of Thrones', 'Ação, Aventura, Drama',  8, 2011,  9.3 ],
+                ['The Witcher', 'Ação, Aventura, Drama',  2, 2019, 8.2 ],
+                ['Friends','Comédia, Romance', 10, 1994, 8.9 ],
+                ['Narcos', 'Biografia, Crime, Drama', 3, 2015, 8.8 ],
+                ['Westworld', 'Drama, Ficção Científica, Mistério', 3, 2016, 8.6 ],
+                ['The Office','Comédia', 9, 2005, 8.9 ],
+                ['Sherlock', 'Crime, Drama, Mistério', 4, 2010,  9.1 ],
+                ['Mindhunter', 'Crime, Drama, Thriller', 2, 2017,  8.6 ],
+                ['The Crown', 'Biografia, Drama, História', 6,  2016, 8.6 ],
+                ['Dexter', 'Crime, Drama, Mistério', 8, 2006, 8.6 ],
+                ['The Umbrella Academy', 'Ação, Aventura, Comédia', 3, 2019, 8.0 ],
+                ['Chernobyl', 'Drama, História, Thriller', 1, 2019, 9.4 ],
+                ['Peaky Blinders', 'Crime, Drama', 6, 2013, 8.8 ],
+                ['The Simpsons', 'Animação, Comédia', 33, 1989, 8.6 ],
             ];
 
             const stmt = db.prepare("INSERT INTO series (nome, genero, temporadas, anoLancamento, rating) VALUES (?, ?, ?, ?, ?)");

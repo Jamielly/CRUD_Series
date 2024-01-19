@@ -5,7 +5,7 @@ const axios = require('axios');
 const app = express();
 app.use(bodyParser.json());
 
-
+//Essa parte fiz mais detalhada pela falta do bd
 let seriesData = [
     { id: 1, nome: 'Breaking Bad', genero: 'Drama', temporadas: 5, anoLancamento: 2008, rating: 9.5 },
     { id: 2, nome: 'Stranger Things', genero: 'Ficção Científica', temporadas: 4, anoLancamento: 2016, rating: 8.7 },
