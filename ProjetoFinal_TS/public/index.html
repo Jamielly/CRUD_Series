@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catalogo de Entidades</title>
+</head>
+<body>
+  <h1>Catalogo de Entidades</h1>
+  <ul id="entityList"></ul>
+  <script>
+    async function fetchEntities() {
+      const response = await fetch('http://localhost:3000/entities');
+      const entities = await response.json();
+      
+      const entityList = document.getElementById('entityList');
+      entities.forEach(entity => {
+        const listItem = document.createElement('li');
+        listItem.textContent = `${entity.id}: ${entity.name}`;
+        entityList.appendChild(listItem);
+      });
+    }
+
+    fetchEntities();
+  </script>
+</body>
+</html>
